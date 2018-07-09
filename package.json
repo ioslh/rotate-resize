@@ -1,10 +1,10 @@
 {
   "name": "rotate-resize",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "lib/rotateResize.umd.js",
   "scripts": {
-    "example": "vue serve example/index.vue",
+    "serve": "vue serve example/index.vue",
     "build:example": "vue build -d site example/index.vue",
     "deploy:example": "npm run build:example && gh-pages -d site",
     "build:lib": "vue build --target lib --dest lib --name rotateResize rotateResize.js",

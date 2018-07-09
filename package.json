@@ -7,7 +7,7 @@
     "example": "vue serve example/index.vue",
     "build:example": "vue build -d site example/index.vue",
     "deploy:example": "npm run build:example && gh-pages -d site",
-    "build:lib": "vue build --target lib --dest lib --name rotateResize index.js",
+    "build:lib": "vue build --target lib --dest lib --name rotateResize rotateResize.js",
     "prepublish": "npm run build:lib"
   },
   "devDependencies": {
@@ -15,6 +15,6 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3"
   },
-  "author": "",
+  "author": "lianghua.sun@ele.me",
   "license": "MIT"
 }

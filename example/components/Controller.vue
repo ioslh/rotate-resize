@@ -33,7 +33,7 @@ import rotateResize, {
   computeEndPoints,
   pointsDistance,
   centerPoint
-} from '../../'
+} from '../../rotateResize'
 
 const handlers = [
   'rotate',

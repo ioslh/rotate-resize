@@ -2,5 +2,5 @@
 const path = require('path')
 
 module.exports = {
-  baseUrl: '/rotate-resize/'
+  baseUrl: '/pages/fe/rotate-resize/'
 }

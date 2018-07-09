@@ -2,7 +2,7 @@
   "name": "rotate-resize",
   "version": "0.0.2",
   "description": "",
-  "main": "lib/rotate-resize.umd.js",
+  "main": "lib/rotateResize.umd.js",
   "scripts": {
     "example": "vue serve example/index.vue",
     "build:example": "vue build -d site example/index.vue",

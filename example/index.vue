@@ -2,16 +2,19 @@
   <div class="wrapper">
     <Controller :rect="rect" @transformed="onTransformed" />
     <Info :rect="rect" @transformed="onTransformed"/>
+    <GitHub />
   </div>
 </template>
 
 <script>
 import Info from './components/Info'
+import GitHub from './components/GitHub'
 import Controller from './components/Controller'
 
 export default {
   components: {
     Info,
+    GitHub,
     Controller
   },
 

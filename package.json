@@ -1,6 +1,6 @@
 {
   "name": "rotate-resize",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "lib/rotateResize.umd.js",
   "scripts": {

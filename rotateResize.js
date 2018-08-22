@@ -234,17 +234,8 @@ export const squareCrossPoint = (points, point) => {
   }
   const baseSlope = lineSlope(p0, p1)
   const verticalSlope = -1 / baseSlope
-  let nextX, nextY
-  if (verticalSlope === 1) {
-    nextX = (p0.y - y + p0.x + x) / 2
-    nextY = y - x + nextX
-  } else if (verticalSlope === -1) {
-    nextX = (y - p0.y + x + p0.x) / 2
-    nextY = y - x + nextX
-  } else {
-    nextX = (baseSlope * p0.x + y - p0.y - verticalSlope * x) / (baseSlope - verticalSlope)
-    nextY = p0.y - baseSlope * (p0.x - nextX)
-  }
+  const nextX = (baseSlope * p0.x + y - p0.y - verticalSlope * x) / (baseSlope - verticalSlope)
+  const nextY = p0.y - baseSlope * (p0.x - nextX)
   return {x: nextX, y: nextY}
 }
 

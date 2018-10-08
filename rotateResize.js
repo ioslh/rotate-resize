@@ -1,4 +1,91 @@
-import EndPoints from './src/EndPoints'
+export const EndPoints = class EndPoints {
+  constructor(rect) {
+    this.rect = rect
+    this._lt = null
+    this._rt = null
+    this._rb = null
+    this._lb = null
+    this._ct = null
+    this._cb = null
+    this._rm = null
+    this._lm = null
+    this._center = null
+  }
+
+  get center() {
+    if (!this._center) {
+      this._center = rectCenter(this.rect)
+    }
+    return this._center
+  }
+
+  get lt () {
+    if (!this._lt) {
+      const { x, y, r } = this.rect
+      this._lt = rotatePositionRelatively({ x, y }, this.center, r)
+    }
+    return this._lt
+  }
+
+  get rt() {
+    if (!this._rt) {
+      const { x, y, w, r } = this.rect
+      this._rt = rotatePositionRelatively(
+        { x: x + w, y },
+        this.center,
+        r
+      )
+    }
+    return this._rt
+  }
+
+  get rb() {
+    if (!this._rb) {
+      this._rb = symmetryPoint(this.lt, this.center)
+    }
+    return this._rb
+  }
+
+  get lb() {
+    if (!this._lb) {
+      this._lb = symmetryPoint(this.rt, this.center)
+    }
+    return this._lb
+  }
+
+  get ct() {
+    if (!this._ct) {
+      this._ct = centerPoint(this.lt, this.rt)
+    }
+    return this._ct
+  }
+
+  get cb() {
+    if (!this._cb) {
+      this._cb = centerPoint(this.rb, this.lb)
+    }
+    return this._cb
+  }
+
+  get rm() {
+    if (!this._rm) {
+      this._rm = centerPoint(this.rt, this.rb)
+    }
+    return this._rm
+  }
+
+  get lm() {
+    if (!this._lm) {
+      this._lm = centerPoint(this.lt, this.lb)
+    }
+    return this._lm
+  }
+}
+
+export const symmetryPoint = (start, center) => {
+  const [x, y] = ['x', 'y'].map(k => start[k] + 2 * (center[k] - start[k]))
+  return { x, y } 
+}
 
 const PRECISION = 1e-5
 
@@ -36,16 +123,6 @@ export const computeRectWithCrossPoints = (pa, pb, angle) => {
     h: height,
     r: angle
   }
-}
-
-/**
- * 返回 start 点相对于 center 点的对称点
- * @param {*} start 
- * @param {*} center 
- */
-export const computeSymmetryPoint = (start, center) => {
-  const [x, y] = ['x', 'y'].map(k => start[k] + 2 * (center[k] - start[k]))
-  return { x, y } 
 }
 
 /**
@@ -410,7 +487,7 @@ const resizeRect = (mouseStart, mouseEnd, adjustType, rectStart, fixedRatio) => 
  * @param {Position} mouseStart
  * @param {Position} mouseEnd
  * @param {String} adjustType: 'rotate'|'move'|'lt'|'rt'|'ct'|'lb'|'rb'|'cb'|'lm'|'rm'
- * @param {Rect} rectStart
+ * @param {Rect} rectStart: { x: Number, y: Number, w: Number, h: Number, r: Number }
  * @param {Boolean} fixedRatio
  */
 export default (

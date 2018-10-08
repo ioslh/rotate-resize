@@ -1,3 +1,5 @@
+import EndPoints from './src/EndPoints'
+
 const PRECISION = 1e-5
 
 const roughlyEqual = (x, y, precision = PRECISION) => Math.abs(x - y) < precision
@@ -34,6 +36,16 @@ export const computeRectWithCrossPoints = (pa, pb, angle) => {
     h: height,
     r: angle
   }
+}
+
+/**
+ * 返回 start 点相对于 center 点的对称点
+ * @param {*} start 
+ * @param {*} center 
+ */
+export const computeSymmetryPoint = (start, center) => {
+  const [x, y] = ['x', 'y'].map(k => start[k] + 2 * (center[k] - start[k]))
+  return { x, y } 
 }
 
 /**
@@ -317,8 +329,7 @@ const rotateRect = (mouseStart, mouseEnd, rectStart) => {
  * @param {*} fixedRatio
  */
 const resizeRect = (mouseStart, mouseEnd, adjustType, rectStart, fixedRatio) => {
-  const e = computeEndPoints(rectStart)
-
+  const e = new EndPoints(rectStart)
   let activeExpand = null
   let acrossPoints = []
   let fixedMouseEnd = mouseEnd
@@ -381,15 +392,17 @@ const resizeRect = (mouseStart, mouseEnd, adjustType, rectStart, fixedRatio) => 
   }
 
   const { length } = pinnedPoints
+  let result
   if (length === 1) {
-    return computeRectWithCrossPoints(pinnedPoints[0], fixedMouseEnd, rectStart.r)
+    result = computeRectWithCrossPoints(pinnedPoints[0], fixedMouseEnd, rectStart.r)
   } else if (length === 2) {
     if (fixedRatio) {
-      return computeRatioedRectWithPinnedLine(pinnedPoints, fixedMouseEnd, rectStart, activeExpand)
+      result = computeRatioedRectWithPinnedLine(pinnedPoints, fixedMouseEnd, rectStart, activeExpand)
     } else {
-      return computeRectWithPinnedLine(pinnedPoints, fixedMouseEnd, rectStart.r)
+      result = computeRectWithPinnedLine(pinnedPoints, fixedMouseEnd, rectStart.r)
     }
   }
+  return result
 }
 
 /**

@@ -126,12 +126,15 @@ export default {
 
     internalStyle() {
       const { x, y, w, h, r } = this.rect
+      const rad = (Math.PI / 180) * r
+      const a = Math.cos(rad)
+      const c = -Math.sin(rad)
+      const b = -c
+      const d = a
       return {
-        left: `${x}px`,
-        top: `${y}px`,
         width: `${w}px`,
         height: `${h}px`,
-        transform: `rotate(${r}deg)`
+        transform: ` matrix(${a}, ${b}, ${c}, ${d}, ${x}, ${y})`,
       }
     },
 
